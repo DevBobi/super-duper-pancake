@@ -5,6 +5,7 @@ import Cards from "./components/Cards";
 
 function App() {
   const [Tasks, setTasks] = useState([]);
+  console.log(Tasks)
   return (
     <Container fluid>
       <Row xs={1} sm={2} md={4} className="g-4 my-4">

@@ -6,18 +6,17 @@ const Cards = ({ header, setTasks, Tasks }) => {
   const openTextModal = (type) => {
     const text = window.prompt("Type Your Task");
     const data = { id: Math.random().toString(16).slice(2), text, type };
-    setTasks([...Tasks, data]);
+    text && setTasks([...Tasks, data]);
   };
 
   const filterData = Tasks.filter((task) => task.type === header);
 
   const updateType = (index, type) => {
-    const updateTask = Tasks.map((task) =>
-      task.id === index
-        ? { ...task, id: task.id, text: task.text, type: type }
-        : task
-    );
-    setTasks(updateTask);
+    console.log(index, type)
+    const newArr = [...Tasks]
+    const newObj = newArr.find((item) => item.id === index)
+    newObj.type = type
+    setTasks(newArr);
   };
 
   return (
@@ -47,14 +46,22 @@ const Cards = ({ header, setTasks, Tasks }) => {
               >
                 <MdKeyboardArrowLeft style={{ cursor: "pointer" }}
                   onClick={() =>
-                    updateType(task.id, header === "Winnie" ? "Brad" : "Bob")
+                    updateType(task.id, task.type === 'Thomas' ? 'Bob'
+                      : task.type === 'Bob' ? 'Brad'
+                        : task.type === 'Brad' ? 'Winnie'
+                          : task.type === 'Winnie' ? 'Thomas'
+                            : null)
                   }
                 />
                 {task.text}
                 <MdKeyboardArrowRight
                   style={{ cursor: "pointer" }}
                   onClick={() =>
-                    updateType(task.id, header === "Brad" ? "Bob" : "Thomas")
+                    updateType(task.id, task.type === 'Winnie' ? 'Brad'
+                      : task.type === 'Brad' ? 'Bob'
+                        : task.type === 'Bob' ? 'Thomas'
+                          : task.type === 'Thomas' ? 'Winnie'
+                            : null)
                   }
                 />
               </ListGroup.Item>
